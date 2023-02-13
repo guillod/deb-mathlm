@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+export DESTDIR=$(CURDIR)/debian/mathlm
+# Upstream version of MathLM (without revision)
+export VERSION=$(shell dpkg-parsechangelog --show-field Version | cut -d'-' -f1)
+
+%:
+	dh $@
+
+override_dh_clean:
+	@rm build -Rf
+	dh_clean
+
+build:
+
+	# Selecting installer and extracting
+	@if [ -f M-UNIX-LM-$(VERSION).sh ]; then \
+		yes 'e' | sh M-UNIX-LM-$(VERSION).sh --keep --target build --nox11 --confirm; \
+	else \
+		echo "MathLM installer not provided at $(CURDIR)/M-UNIX-LM-$(VERSION).sh"; \
+		exit 1; \
+	fi
+
+
+# Do no strip
+override_dh_strip_nondeterminism:
+	
+override_dh_strip:
+	

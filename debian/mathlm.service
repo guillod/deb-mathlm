@@ -1,0 +1,14 @@
+[Unit]
+Description=MathLM license server daemon
+After=network-online.target
+
+[Service]
+Type=simple
+User=mathlm
+WorkingDirectory=/etc/mathlm
+ExecStart=/usr/sbin/mathlm -foreground -localtime
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

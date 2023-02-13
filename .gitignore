@@ -1,0 +1,8 @@
+M-UNIX-LM*.sh
+mathpass
+debhelper-build-stamp
+*.substvars
+build/
+debian/files
+debian/mathlm
+debian/.debhelper
